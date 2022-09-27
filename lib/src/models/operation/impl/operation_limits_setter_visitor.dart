@@ -7,13 +7,17 @@ import 'operation.dart';
 class OperationLimitsSetterVisitor implements OperationVisitor {
   @override
   Future<void> visit(Operation operation) async {
-    operation.gasLimit = operation.customGasLimit ?? _simulationConsumedGas(operation);
-    operation.storageLimit = operation.customStorageLimit ?? _simulationStorageSize(operation);
+    operation.gasLimit =
+        operation.customGasLimit ?? _simulationConsumedGas(operation);
+    operation.storageLimit =
+        operation.customStorageLimit ?? _simulationStorageSize(operation);
 
     if (operation.customStorageLimit != null) return;
 
-    if (operation.kind == Kinds.origination || _isDestinationContractAllocated(operation)) {
-      operation.storageLimit = operation.storageLimit! + await _originationDefaultSize(operation);
+    if (operation.kind == Kinds.origination ||
+        _isDestinationContractAllocated(operation)) {
+      operation.storageLimit =
+          operation.storageLimit! + await _originationDefaultSize(operation);
     } else {
       operation.storageLimit = _simulationStorageSize(operation);
     }
@@ -21,15 +25,21 @@ class OperationLimitsSetterVisitor implements OperationVisitor {
 
   // returns true if the operation is a transfer to an address unknown by the chain
   bool _isDestinationContractAllocated(Operation operation) {
-    return _simulationResult(operation)['metadata']['operation_result']['allocated_destination_contract'] == true;
+    return _simulationResult(operation)['metadata']['operation_result']
+            ['allocated_destination_contract'] ==
+        true;
   }
 
   int _simulationStorageSize(Operation operation) {
-    return int.parse(_simulationResult(operation)['metadata']['operation_result']['paid_storage_size_diff'] ?? '0');
+    return int.parse(_simulationResult(operation)['metadata']
+            ['operation_result']['paid_storage_size_diff'] ??
+        '0');
   }
 
   int _simulationConsumedGas(Operation operation) {
-    return int.parse(_simulationResult(operation)['metadata']['operation_result']['consumed_gas'] as String);
+    final consumedMiligas = int.parse(_simulationResult(operation)['metadata']
+        ['operation_result']['consumed_milligas'] as String);
+    return consumedMiligas ~/ 1000;
   }
 
   Future<int> _originationDefaultSize(Operation operation) async {
@@ -37,13 +47,15 @@ class OperationLimitsSetterVisitor implements OperationVisitor {
   }
 
   Map<String, dynamic> _simulationResult(Operation operation) {
-    if (operation.simulationResult == null) throw ArgumentError.notNull('operation.simulationResult');
+    if (operation.simulationResult == null)
+      throw ArgumentError.notNull('operation.simulationResult');
 
     return operation.simulationResult!;
   }
 
   RpcInterface _rpcInterface(Operation operation) {
-    if (operation.operationsList == null) throw ArgumentError.notNull('operation.operationsList');
+    if (operation.operationsList == null)
+      throw ArgumentError.notNull('operation.operationsList');
 
     return operation.operationsList!.rpcInterface;
   }
