@@ -72,8 +72,9 @@ class OperationsList {
   /// It sets the simulationResult for all the elements of [operations]
   Future<void> preapply() async {
     await _catchHttpError<void>(() async {
-      if (result.signature == null)
+      if (result.signature == null) {
         throw ArgumentError.notNull('result.signature');
+      }
 
       final simulationResults = await rpcInterface.preapplyOperations(
         operationsList: this,
@@ -113,8 +114,9 @@ class OperationsList {
   /// It sets result.signature\
   /// It must be run after [forge], because it needs result.forgedOperation to be set
   void sign() {
-    if (result.forgedOperation == null)
+    if (result.forgedOperation == null) {
       throw ArgumentError.notNull('result.forgedOperation');
+    }
 
     result.signature = Signature.fromHex(
       data: result.forgedOperation!,
@@ -129,8 +131,9 @@ class OperationsList {
   /// It must be run after [sign] because it needs result.signature to be set
   Future<void> inject() async {
     await _catchHttpError<void>(() async {
-      if (result.signature == null)
+      if (result.signature == null) {
         throw ArgumentError.notNull('result.signature');
+      }
 
       final payload = await result.signature!.hexIncludingPayload;
       result.id = await rpcInterface.injectOperation(payload);

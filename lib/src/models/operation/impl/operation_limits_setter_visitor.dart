@@ -48,15 +48,17 @@ class OperationLimitsSetterVisitor implements OperationVisitor {
   }
 
   Map<String, dynamic> _simulationResult(Operation operation) {
-    if (operation.simulationResult == null)
+    if (operation.simulationResult == null) {
       throw ArgumentError.notNull('operation.simulationResult');
+    }
 
     return operation.simulationResult!;
   }
 
   RpcInterface _rpcInterface(Operation operation) {
-    if (operation.operationsList == null)
+    if (operation.operationsList == null) {
       throw ArgumentError.notNull('operation.operationsList');
+    }
 
     return operation.operationsList!.rpcInterface;
   }

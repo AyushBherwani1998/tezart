@@ -1,7 +1,4 @@
 import 'package:test/test.dart';
-import 'package:tezart/src/core/rpc/impl/rpc_interface.dart';
-import 'package:tezart/src/models/operation/operation.dart';
-import 'package:tezart/src/models/operations_list/operations_list.dart';
 import 'package:tezart/tezart.dart';
 
 void main() {

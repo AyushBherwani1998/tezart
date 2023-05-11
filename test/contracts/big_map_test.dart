@@ -1,6 +1,4 @@
 import 'package:test/test.dart';
-import 'package:tezart/src/contracts/contract.dart';
-import 'package:tezart/src/core/rpc/impl/tezart_http_error.dart';
 import 'package:tezart/tezart.dart';
 
 import '../env/env.dart';

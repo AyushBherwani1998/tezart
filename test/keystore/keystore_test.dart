@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:test/test.dart';
-import 'package:tezart/src/crypto/impl/crypto_error.dart';
 import 'package:tezart/src/keystore/keystore.dart';
 import 'package:tezart/src/signature/signature.dart';
 

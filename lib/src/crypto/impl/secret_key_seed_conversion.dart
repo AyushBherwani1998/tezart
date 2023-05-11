@@ -1,11 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:tezart/src/crypto/impl/prefixes.dart';
 import 'package:tezart/tezart.dart';
 
-import 'crypto_error.dart';
-import 'encode_decode.dart';
-import 'external_crypto_wrapper.dart';
 
 // 1. Convert secret key to bytes
 // 2. Cut first 4 bytes representing the prefix
