@@ -123,10 +123,6 @@ class Operation {
     if (value == null) throw ArgumentError.notNull('simulationResult');
 
     _simulationResult = value;
-    final consumedMilligas = int.tryParse(
-            value['metadata']['operation_result']['consumed_milligas']) ??
-        0;
-    fee = consumedMilligas ~/ 1000;
     SimulationResultValidator(_simulationResult!).validate();
   }
 
